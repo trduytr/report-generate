@@ -109,9 +109,38 @@ function Home() {
         milestone.forEach(item => {
             mileStoneString += item.name.length > 0 ? '||[milestone:'+ item.name +'] ' : '|| なし'
             mileStoneString += item.tantou.length > 0 ? ' || '+ item.tantou.replaceAll(',', ',[[BR]]') : ' || なし'
-            mileStoneString += item.done.length > 0 ? ' || '+ item.done.replaceAll(',', ',[[BR]]') : ' || なし'
-            mileStoneString += item.doing.length > 0 ? ' || '+ item.doing.replaceAll(',', ',[[BR]]') : ' || なし'
-            mileStoneString += item.nextweek.length > 0 ? ' || '+ item.nextweek.replaceAll(',', ',[[BR]]') : ' || なし'
+            let doneAry: String[] = []
+            if (item.done.length > 0) {
+                doneAry = item.done.split(",").map(item => {
+                    if (item.charAt(0) !== '#' && !isNaN(parseFloat(item))) {
+                        return "#" + item
+                    }
+                    return item
+                })
+            }
+            mileStoneString += doneAry.length > 0 ? ' || '+ doneAry.join(',[[BR]]') : ' || なし'
+            let doingAry: String[] = []
+            if (item.doing.length > 0) {
+                doingAry = item.doing.split(",").map(item => {
+                    if (item.charAt(0) !== '#' && !isNaN(parseFloat(item))) {
+                        return "#" + item
+                    }
+                    return item
+                })
+            }
+            mileStoneString += doingAry.length > 0 ? ' || '+ doingAry.join(',[[BR]]') : ' || なし'
+
+            let nextweekAry: String[] = []
+            if (item.nextweek.length > 0) {
+                nextweekAry = item.nextweek.split(",").map(item => {
+                    if (item.charAt(0) !== '#' && !isNaN(parseFloat(item))) {
+                        return "#" + item
+                    }
+                    return item
+                })
+            }
+
+            mileStoneString += nextweekAry.length > 0 ? ' || '+ nextweekAry.join(',[[BR]]') : ' || なし'
             mileStoneString += ' ||\n'
 
         
